@@ -699,14 +699,17 @@ MSWindowsDesks::deskThread(void* vdesk)
                 switch (m_install()) {
                 case kHOOK_FAILED:
                     // we won't work on this desk
+                    LOG((CLOG_DEBUG "failed to install a hook"));
                     desk->m_lowLevel = false;
                     break;
 
                 case kHOOK_OKAY:
+                    LOG((CLOG_DEBUG "a hook is installed"));
                     desk->m_lowLevel = false;
                     break;
 
                 case kHOOK_OKAY_LL:
+                    LOG((CLOG_DEBUG "a low level hook is installed"));
                     desk->m_lowLevel = true;
                     break;
                 }
