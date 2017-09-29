@@ -484,6 +484,7 @@ doMouseHookHandler(WPARAM wParam, SInt32 x, SInt32 y, SInt32 data)
     case WM_NCRBUTTONUP:
     case WM_NCXBUTTONUP:
         // always relay the event.  eat it if relaying.
+        PostThreadMessage(g_threadID, SYNERGY_MSG_DEBUG, wParam, data);
         PostThreadMessage(g_threadID, SYNERGY_MSG_MOUSE_BUTTON, wParam, data);
         return (g_mode == kHOOK_RELAY_EVENTS);
 
@@ -498,6 +499,7 @@ doMouseHookHandler(WPARAM wParam, SInt32 x, SInt32 y, SInt32 data)
     case WM_MOUSEMOVE:
         if (g_mode == kHOOK_RELAY_EVENTS) {
             // relay and eat event
+            PostThreadMessage(g_threadID, SYNERGY_MSG_DEBUG, x, y);
             PostThreadMessage(g_threadID, SYNERGY_MSG_MOUSE_MOVE, x, y);
             return true;
         }
@@ -545,6 +547,7 @@ doMouseHookHandler(WPARAM wParam, SInt32 x, SInt32 y, SInt32 data)
             }
 
             // relay the event
+            PostThreadMessage(g_threadID, SYNERGY_MSG_DEBUG, x, y);
             PostThreadMessage(g_threadID, SYNERGY_MSG_MOUSE_MOVE, x, y);
 
             // if inside and not bogus then eat the event
